@@ -2,14 +2,15 @@
 
 A machine learning project that predicts the risk of mortality in patients with heart failure using clinical data. The project uses a Random Forest Classifier and is deployed as an interactive Streamlit web application.
 
-The model is trained using clinical features such as age, ejection fraction, serum creatinine, serum sodium, and other patient-related measurements. The project also evaluates class imbalance and uses a custom prediction threshold to improve the detection of positive cases.
+The model is trained using clinical features such as age, ejection fraction, serum creatinine, serum sodium, and other patient-related measurements. Exploratory Data Analysis (EDA) was performed to understand the dataset, identify patterns, and examine relationships between the clinical features and the target variable.
 
 > **Disclaimer:** This project is developed for educational purposes only and is not intended to provide medical diagnosis or clinical decisions.
 
 ## Objectives
 
 - Analyze clinical data related to heart failure.
-- Identify important factors associated with patient mortality.
+- Perform Exploratory Data Analysis to identify patterns and relationships.
+- Identify important clinical features associated with patient mortality.
 - Build a machine learning model to predict mortality risk.
 - Evaluate model performance, particularly for the positive class.
 - Deploy the final model as an interactive Streamlit web application.
@@ -51,13 +52,27 @@ The target variable is `DEATH_EVENT`, where:
 - Streamlit
 - Google Colab
 
+## Exploratory Data Analysis
+
+Exploratory Data Analysis was performed to understand the distribution of the clinical features and investigate their relationship with the target variable.
+
+The analysis included:
+
+- Distribution analysis of clinical features
+- Target class distribution
+- Feature comparisons across mortality classes
+- Correlation analysis
+- Visualizations using Matplotlib and Seaborn
+
+The analysis also highlighted the class imbalance in the target variable, with Class 0 representing the majority of observations.
+
 ## Data Preprocessing
 
 The dataset was checked for missing values, duplicate records, and data types before model training.
 
-The target variable `DEATH_EVENT` was separated from the input features. The data was then divided into training and testing sets using an 80:20 split with stratification to preserve the class distribution.
+The target variable `DEATH_EVENT` was separated from the input features. An 80:20 stratified train-test split was then performed to preserve the class distribution.
 
-The `time` feature was excluded from the final model because it represents the follow-up period after the patient's clinical assessment and could make the prediction less suitable for estimating risk based only on the available clinical characteristics.
+The `time` feature was excluded from the final model because it represents the follow-up period after the patient's clinical assessment. Excluding it makes the prediction less dependent on follow-up duration and more focused on the patient's clinical characteristics.
 
 The final model uses the remaining 11 clinical features as input.
 
@@ -65,9 +80,9 @@ The final model uses the remaining 11 clinical features as input.
 
 Several classification approaches were evaluated during the project to identify a suitable model for predicting the target class.
 
-The final model selected was a **Random Forest Classifier**. The `time` feature was excluded from the final model to avoid relying on the follow-up duration as a prediction input.
+The final model selected was a **Random Forest Classifier**.
 
-The data was split into training and testing sets using an 80:20 stratified split.
+The model was trained using the 11 selected clinical features and evaluated on the test set.
 
 ## Model Evaluation
 
@@ -91,7 +106,7 @@ At the selected threshold of `0.25`, the model achieved:
 
 **Overall accuracy: 68%**
 
-The selected threshold improved recall for Class 1 to **79%**, meaning the model correctly identified 15 out of 19 positive cases in the test set. This was prioritized over overall accuracy because detecting more positive cases was considered more important for this project.
+The selected threshold resulted in a **79% recall for Class 1**, meaning the model correctly identified 15 out of 19 positive cases in the test set. This was prioritized over overall accuracy because detecting more positive cases was considered more important for this project.
 
 ## Streamlit Application
 
@@ -111,6 +126,7 @@ The application uses the same 11 features used during model training and applies
 - Interactive web interface
 
 > **Disclaimer:** The application is intended for educational and demonstration purposes only and should not be used for medical diagnosis or treatment decisions.
+
 ## Project Structure
 
 ```text
